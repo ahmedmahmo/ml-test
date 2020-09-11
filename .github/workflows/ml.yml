@@ -1,23 +1,19 @@
-name: Deploy_to_Common
-
-on:
-  push:
-    branches:
-      - "master"
-      
+name: My Workflow
+on: [push, pull_request]
 jobs:
-  build_image:
+  build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
-      - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
-        shell: bash
-      - uses: rlespinasse/github-slug-action@master
+    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+    - name: Check Out Repository
+      id: checkout_repository
+      uses: actions/checkout@v2
 
-      - uses: Azure/aml-workspace@v1
-        id: delphai-development
+    # AML Workspace Action
+    - uses: Azure/aml-workspace@v1
+      id: aml_workspace
       # required inputs as secrets
-        with:
+      with:
         # required
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
-          parameters_file: "workspace.json"
+        azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        # optional

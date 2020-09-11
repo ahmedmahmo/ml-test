@@ -26,3 +26,8 @@ jobs:
         azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
         # optional
         parameters_file: "compute.json"
+    - uses: Azure/aml-run@v1
+      id: aml_run
+      with:
+        # required inputs as secrets
+        azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}

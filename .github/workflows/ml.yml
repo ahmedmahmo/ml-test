@@ -20,3 +20,4 @@ jobs:
         with:
         # required
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
+          parameters_file: "workspace.json"

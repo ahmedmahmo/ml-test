@@ -11,7 +11,7 @@ jobs:
 
     # AML Workspace Action
     - uses: Azure/aml-workspace@v1
-      id: aml_workspace
+      id: delphai-development
       # required inputs as secrets
       with:
         # required

@@ -1,0 +1,7 @@
+{
+    "name" : "ml-test",
+    "subscription_id": "f06d52b2-9e96-4549-b9da-a7e71dd3234a",
+    "resource_group": "machine-learning",
+    "workspace_name": "delphai-development"
+
+}

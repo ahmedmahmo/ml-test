@@ -18,3 +18,11 @@ jobs:
         azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
         # optional
         parameters_file: "workspace.json"
+        
+    - uses: Azure/aml-compute@v1
+      id: aml_compute
+      with:
+        # required inputs as secrets
+        azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        # optional
+        parameters_file: "compute.json"

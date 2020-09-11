@@ -15,6 +15,6 @@ jobs:
       # required inputs as secrets
       with:
         # required
-        azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
         # optional
         parameters_file: "workspace.json"

@@ -1,37 +1,22 @@
-name: My Workflow
+name: Deploy_to_Common
 
 on:
   push:
     branches:
       - "master"
+      
 jobs:
-  build:
+  build_image:
     runs-on: ubuntu-latest
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - name: Check Out Repository
-      id: checkout_repository
-      uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - run: echo ::set-env name=REPOSITORY_NAME::$(echo "$GITHUB_REPOSITORY" | awk -F / '{print $2}' | sed -e "s/:refs//")
+        shell: bash
+      - uses: rlespinasse/github-slug-action@master
 
-    # AML Workspace Action
-    - uses: Azure/aml-workspace
-      id: delphai-development
-      with:
-        azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
-    
-    # # AML Run Action
-    # - uses: Azure/aml-run@v1
-    #   id: aml_run
-    #   with:
-    #     azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
-
-    # # AML Register Model Action
-    # - uses: Azure/aml-registermodel@v1
-    #   id: aml_registermodel
-    #   with:
-    #     # required inputs
-    #     azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    #     run_id:  ${{ steps.aml_run.outputs.run_id }}
-    #     experiment_name: ${{ steps.aml_run.outputs.experiment_name }}
-    #     # optional inputs
-    #     parameters_file: "registermodel.json"
+      - uses: Azure/aml-workspace@v1
+        id: delphai-development
+      # required inputs as secrets
+        with:
+        # required
+          azure_credentials: ${{ secrets.AZURE_CREDENTIALS_ML }}
